@@ -15,14 +15,16 @@ export const userSchema = z.object({
 export const validation = async (request: FastifyRequest, reply: FastifyReply) => {
   try {
     userSchema.parse(request.body);
-    return; // loop infinito
   } catch (error) {
     if (error instanceof z.ZodError) {
+      const errorMessages = error.errors.map((err) => ({
+        field: err.path.join("."),  // Caminho do campo que falhou
+        msg: err.message,  // Mensagem de erro
+      }));
+
       return reply.status(400).send({
-        errors: error.errors.map((err) => ({
-          field: err.path.join("."),
-          message: err.message
-        })),
+        msg: "Erro de validação no corpo da requisição", // Mensagem geral
+        errors: errorMessages, // Detalhes dos erros de validação
       });
     }
   }
