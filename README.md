@@ -137,3 +137,9 @@ Exemplo de resultado
   "msg": "Usuário deletado com sucesso"
 }
 ```
+
+### Swagger
+
+Essa api foi documentada com swagger. Logo abaixo esta api
+
+![Swagger UI](docs/swagger-ui.png)
